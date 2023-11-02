@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="zaikocgi.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="connect" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=postgres</Value>
+    </Setting>
+    <Setting Name="schemaname" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">zaiko</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
