@@ -1,0 +1,202 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid"; // fas
+@import "~@fortawesome/fontawesome-free/scss/regular"; // far
+@import "~@fortawesome/fontawesome-free/scss/brands"; // fab
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// AdminLTE
+@import '../../vendor/almasaeed2010/adminlte/dist/css/adminlte.css';
+
+// jquery
+@import '~jquery-ui/themes/base/all.css';
+
+body {
+    font-family: "MS Pゴシック" ;
+}
+
+.content-header{
+    padding: 5px;
+}
+
+.container,
+.container-fluid,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.card {
+    margin-bottom: 5px;
+}
+
+.card-header {
+    padding: 5px;
+}
+
+.card-body {
+    padding: 5px;
+}
+
+.content-wrapper>.content {
+    padding: 5px;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: lavenderblush;
+}
+
+.autorow{
+    border: none;
+    padding: 0px;
+    th{
+        border: none;
+        padding: 0px;
+        width: 1%;
+    }
+}
+
+
+.status_base{
+    border: dimgray solid 1px;
+    border-color: black !important;
+    margin: 0px;
+    min-width: 100px;
+}
+.status00{
+    @extend .status_base;
+    background-color: ghostwhite !important;
+    color: black !important;
+}
+.status10{
+    @extend .status_base;
+    background-color: yellow !important;
+    color: black !important;
+}
+.status20{
+    @extend .status_base;
+    background-color: orange !important;
+    color: black !important;
+}
+.status30{
+    @extend .status_base;
+    background-color: skyblue !important;
+    color: black !important;
+}
+.status40{
+    @extend .status_base;
+    background-color: lime !important;
+    color: black !important;
+}
+.status50{
+    @extend .status_base;
+    background-color: deeppink !important;
+    color: white !important;
+}
+.status60{
+    @extend .status_base;
+    background-color: gray !important;
+    color: white !important;
+}
+.status70{
+    @extend .status_base;
+    background-color: gainsboro !important;
+    color: gray !important;
+}
+.status99{
+    @extend .status_base;
+    background-color: gainsboro !important;
+    color: gray !important;
+}
+.w-24 {
+    width: 24% !important;
+}
+
+.table {
+    margin: 0px;
+    th{
+        text-align: center !important;
+    }
+}
+
+.pagination {
+    margin: 1px 1px 1px 1px;
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: snow;
+  opacity: 1;
+}
+
+.breakword{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.el-input.is-disabled .el-input__inner {
+    color: rgb(73, 80, 87) !important;
+}
+
+.line-through{
+    text-decoration-line: line-through;
+}
+
+
+//以下20221108にサンシード小澤が記述
+.w-none {
+    width: unset !important;
+}
+
+/* Media Queries 769px以上 */
+@media screen and (min-width: 769px){
+    .pc{
+    }
+    .sp{
+        //ディスプレイが769px以上の場合はspクラスは表示しない
+      display:none;
+    }
+  }
+
+  /* Media Queries 768px以下 */
+  @media screen and (max-width:768px){
+    //ディスプレイが768以下の場合はpcクラスを表示しない
+    .pc{
+      display:none;
+    }
+    .sp{
+    }
+  }
+
+.table-min {
+    min-width: 600px;
+    max-height: 100%;
+}
+
+select.form-control {
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
+    appearance: menulist;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+.btn-check {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none;
+}
+
+//ここまで
