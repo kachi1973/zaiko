@@ -12,7 +12,7 @@ namespace zaikocgi.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,19 +25,19 @@ namespace zaikocgi.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=postgres")]
-        public string connect {
+        [global::System.Configuration.DefaultSettingValueAttribute("zaiko")]
+        public string schemaname {
             get {
-                return ((string)(this["connect"]));
+                return ((string)(this["schemaname"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("zaiko")]
-        public string schemaname {
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=postgres;")]
+        public string connect {
             get {
-                return ((string)(this["schemaname"]));
+                return ((string)(this["connect"]));
             }
         }
     }
