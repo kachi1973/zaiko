@@ -54,6 +54,7 @@
                             <button type="button" class="btn btn-primary" v-on:click="search_func(1)">検索</button>
                             <button type="button" class="btn btn-primary" v-on:click="search_clear()">クリア</button>
                             <button type="button" class="btn btn-primary" v-on:click="edit(0)" v-if="!IsMobile">新規</button>
+                            <button type="button" class="btn btn-primary" v-on:click="download()">XLS</button>
                         </div>
                     </form>
                 </div>
@@ -264,6 +265,33 @@ export default {
                     t.page_num = datas.page_num;
                     t.items = datas.items;
                 }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+				t.search_ing = false;
+			});
+        },
+        download(){
+			var t = this;
+            localStorage.setItem("konyu.list.search", JSON.stringify(t.search));
+			if(t.search_ing){
+				return;
+			}
+			t.search_ing = true;
+            $.ajax({
+                type : "POST",
+                url : root_path + "konyu/AjaxGetKonyus",
+                xhrFields: { responseType: 'blob' },
+                contentType : 'application/json',
+                data : JSON.stringify({
+                    search: t.search,
+                    pageNum: 1,
+                    type: 'excel',
+                }),
+            }).done(function(response, _textStatus, _jqXHR) {
+				t.search_ing = false;
+                $('<a>', {
+                href: URL.createObjectURL(new Blob([response], { type: response.type })),
+                    download: "部品購入依頼一覧.xlsx"
+                }).appendTo(document.body)[0].click();
             }).fail(function(jqXHR, textStatus, errorThrown) {
 				t.search_ing = false;
 			});

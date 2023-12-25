@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +33,7 @@ namespace zaikocgi
 {
     class ShukkoPrint : PrintBase
     {
-        private class Zaiko
+        public class Zaiko
         {
             public int? id { get; set; }
             public string basho { get; set; }
@@ -69,7 +69,7 @@ namespace zaikocgi
             public int? sinsei_suu { get; set; }
             public string model_kind { get; set; }
         }
-        private class Item
+        public class Item
         {
             public int? id { get; set; }
             public int? shukko_id { get; set; }
@@ -82,7 +82,7 @@ namespace zaikocgi
             public int? used_suu { get; set; }
             public Zaiko zaiko { get; set; }
         }
-        private class Data
+        public class Shukko
         {
             public int? id { get; set; }
             public string user_id { get; set; }
@@ -135,7 +135,7 @@ namespace zaikocgi
             }
             Array.Resize(ref buf, buf_size);
             var json_str = System.Text.Encoding.UTF8.GetString(buf);
-            var data = Program.GetJson<Data>(json_str);
+            var data = Program.GetJson<Shukko>(json_str);
             var bf = BaseFont.CreateFont(Path.Combine(Environment.SystemDirectory.Replace("system32", "fonts"), "msmincho.ttc,1"), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             fntL = new Font(bf, 15f);
             fntM = new Font(bf, 8.5f);

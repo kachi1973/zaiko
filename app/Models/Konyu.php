@@ -25,6 +25,7 @@ class Konyu extends LocalBase{
         'created_at',
     ];
     protected $appends = [
+        'status_str',
         'bumon_name',
         'status10_user_name',
         'status20_user_name',
@@ -63,23 +64,21 @@ class Konyu extends LocalBase{
     public function getStatusStrAttribute(){
         switch($this->status){
             case 10:
-                return '出庫確認待ち';
+                return '課長承認待';
             case 20:
-                return '部品返却待ち';
+                return '部長承認待';
             case 30:
-                return '返却確認待ち';
+                return '受取り待';
             case 40:
-                return '完了登録待ち';
+                return '倉庫移動待';
             case 50:
-                return '課長承認待ち';
             case 60:
-                return '完了';
             case 70:
                 return '完了';
             case 99:
                 return 'キャンセル';
             default:
-                return '出庫申請前';
+                return '申請待';
         }
     }
 }

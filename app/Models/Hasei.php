@@ -21,6 +21,7 @@ class Hasei extends LocalBase{
         'status70_date',
     ];
     protected $appends = [
+        'status_str',
         'status10_user_name',
         'status20_user_name',
         'status30_user_name',

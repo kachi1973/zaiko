@@ -109,6 +109,18 @@ class KzaikoController extends Controller
                     }
                     fclose($handle);
                 }, $filename);
+            }else if(isset($req->submit4)){
+                // エクセル出力
+                $now = Carbon::now();
+                $filename = "kzaikolist.{$now->format('YmdHi')}.xlsx";
+                ob_start();
+                passthru(base_path("bin\\zaikocgi.exe 15"));
+                $output = ob_get_contents();
+                ob_end_clean();
+                return new Response($output, 200, array(
+                    'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'Content-Disposition' =>  'attachment; filename*=UTF-8\'\'' . urlencode($filename),
+                ));
             }else{
                 $items = $q->paginate(50);
                 $items->appends($req->query());

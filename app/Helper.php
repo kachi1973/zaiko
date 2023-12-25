@@ -143,4 +143,47 @@ class Helper
         $agent = new Agent();
         return $agent->isPhone();
     }
+    public static function RunCmd($cmd, $json){
+        $proc = proc_open($cmd, array(
+            0 => array('pipe', 'r'),
+            1 => array('pipe', 'w'),
+            2 => array('pipe', 'w'),
+        ), $pipes);
+        stream_set_write_buffer($pipes[0], 0);
+        stream_set_blocking($pipes[1], 0);
+        stream_set_blocking($pipes[2], 0);
+        if(isset($json)){
+            $len = strlen($json);
+            for ($written = 0; $written < $len;) {
+                $written += fwrite($pipes[0], substr($json, $written, 4096));
+            }
+        }
+        fclose($pipes[0]);
+        $stdout = $stderr = '';
+        while (feof($pipes[1]) === false) {
+            $read = array($pipes[1]);
+            $write  = NULL;
+            $except = NULL;
+            $ret = stream_select($read, $write, $except, 1);
+            if ($ret === false) {
+                // error
+                break;
+            } else if ($ret === 0) {
+                // timeout
+                continue;
+            } else {
+                foreach ($read as $sock) {
+                    if ($sock === $pipes[1]) {
+                        $stdout .= fread($sock, 4096);
+                    }
+                }
+            }
+        }
+        fclose($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[2]);
+        $ret = proc_close($proc);
+        //file_put_contents(base_path("bin\\" . $filename), $stdout);1
+        return [$ret, $stdout, $stderr];
+    }
 }

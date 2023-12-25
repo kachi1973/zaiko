@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 use App\Helper;
@@ -326,19 +327,35 @@ class ShukkoController extends Controller
                 }
             }
         }
-        $total_cnt = $q->count();
-        $items = $q->skip(($pageNum - 1) * $perPage)->take($perPage)->get();
-        return response()->json(
-            [
-                'total_cnt' => $total_cnt,
-                'page_cnt' => ceil($total_cnt / $perPage),
-                'page_num' => $pageNum,
-                'items' => $items,
-            ],
-            200,
-            [],
-            JSON_UNESCAPED_UNICODE
-        );
+        if($req->type == 'excel'){
+            $json = json_encode($q->get(), 0);
+            if(config('app.json_debug')){
+                file_put_contents(base_path("bin\\shukkos.json"), $json);
+            }
+            [$ret, $stdout, $stderr] = Helper::RunCmd(base_path("bin\\zaikocgi.exe 10"), $json);
+            $headers = [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="shukkos.xlsx"'
+            ];
+            return response()->make($stdout, 200, $headers);
+        }else{
+            $total_cnt = $q->count();
+            $items = $q->skip(($pageNum - 1) * $perPage)->take($perPage)->get();
+            return response()->json(
+                [
+                    'total_cnt' => $total_cnt,
+                    'page_cnt' => ceil($total_cnt / $perPage),
+                    'page_num' => $pageNum,
+                    'items' => $items,
+                ],
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
+        }
+    }
+    public function AjaxDownloadShukkos(Request $req){
+
     }
     public function get_shukko($id){
         $item = Shukko::find($id);

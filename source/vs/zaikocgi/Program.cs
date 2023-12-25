@@ -1,4 +1,4 @@
-﻿using Npgsql;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,8 +67,44 @@ namespace zaikocgi
 					he.run2(args[1]);
 				}
 				break;
-			}
-		}
+            case 10: // 部品出庫一覧エクスポート
+                {
+                    var he = new ShukkosExport();
+                    he.run();
+                }
+                break;
+            case 11: // 情報連絡票一覧エクスポート
+                {
+                    var he = new JorensExport();
+                    he.run();
+                }
+                break;
+            case 12: // 部品購入依頼一覧エクスポート
+                {
+                    var he = new KonyusExport();
+                    he.run();
+                }
+                break;
+            case 13: // 発生品一覧エクスポート
+                {
+                    var he = new HaseisExport();
+                    he.run();
+                }
+                break;
+            case 14: // 倉庫移動伝票一覧エクスポート
+                {
+                    var he = new ZidosExport();
+                    he.run();
+                }
+                break;
+            case 15: // 個別在庫エクスポート
+                {
+                    var ze = new KZaikoExport();
+                    ze.run();
+                }
+                break;
+            }
+        }
 		static public string get_YMD(object field)
 		{
 			var date = field as DateTime?;
@@ -78,7 +114,11 @@ namespace zaikocgi
 			}
 			return null;
 		}
-		static public string get_cust_name(string connString, object _id, string name, string sep)
+        static public string get_name(DateTime? date, string name)
+        {
+            return $"{Program.get_YMD(date)} {name}";
+        }
+        static public string get_cust_name(string connString, object _id, string name, string sep)
 		{
 			var id = _id as int?;
 			if (id.HasValue)

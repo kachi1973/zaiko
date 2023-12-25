@@ -41,9 +41,9 @@
                                 <option v-for="item in users" :value="item.id" v-bind:key="item.id">{{item.name}}</option>
                             </select>
                         </div>
-                        <div class="input-group input-group-sm">
+                        <div class="input-group input-group-sm col-md-1 p-0">
                             <div class="input-group-prepend">
-                                <div class="input-group-text">受注番号</div>
+                                <div class="input-group-text p-1">受注番号</div>
                             </div>
                             <input type="text" class="form-control" placeholder="00-00000" v-model="search.seiban">
                         </div>
@@ -105,6 +105,7 @@
                             <button type="button" class="btn btn-primary" v-on:click="search_pattern(2)">製番投入検索</button>
                             <button type="button" class="btn btn-primary" v-on:click="search_clear()">クリア</button>
                             <button type="button" class="btn btn-primary" v-on:click="edit(0)" v-if="!IsMobile">新規</button>
+                            <button type="button" class="btn btn-primary" v-on:click="download()">XLS</button>
                         </div>
                     </div>
                 </div>
@@ -396,6 +397,33 @@ export default {
             }).fail(function(jqXHR, textStatus, errorThrown) {
 				t.search_ing = false;
 			});
+        },
+        download(){
+			var t = this;
+            localStorage.setItem("shukko.list.search", JSON.stringify(t.search));
+			if(t.search_ing){
+				return;
+			}
+			t.search_ing = true;
+            $.ajax({
+                type : "POST",
+                url : root_path + "shukko/AjaxGetShukkos",
+                xhrFields: { responseType: 'blob' },
+                contentType : 'application/json',
+                data : JSON.stringify({
+                    search: t.search,
+                    pageNum: 1,
+                    type: 'excel',
+                }),
+            }).done(function(response, _textStatus, _jqXHR) {
+				t.search_ing = false;
+                $('<a>', {
+                href: URL.createObjectURL(new Blob([response], { type: response.type })),
+                    download: "部品出庫一覧.xlsx"
+                }).appendTo(document.body)[0].click();
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+				t.search_ing = false;
+ 			});
         },
         edit(id){
             router.push({ name: 'shukko.edit', params: { id }});

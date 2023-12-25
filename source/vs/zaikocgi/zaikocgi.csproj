@@ -123,8 +123,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HaseiPrint.cs" />
+    <Compile Include="HaseisExport.cs" />
+    <Compile Include="KZaikoExport.cs" />
+    <Compile Include="ZidosExport.cs" />
+    <Compile Include="KonyusExport.cs" />
     <Compile Include="KonyuPrint.cs" />
     <Compile Include="HinmokuExport.cs" />
+    <Compile Include="JorensExport.cs" />
+    <Compile Include="ShukkosExport.cs" />
     <Compile Include="ZaikoExport.cs" />
     <Compile Include="ZidoPrint.cs" />
     <Compile Include="PrintBase.cs" />

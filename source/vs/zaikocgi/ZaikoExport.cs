@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,14 +67,6 @@ namespace zaikocgi
 
 		public void run()
 		{
-			/*
-			using (var wb = new XLWorkbook(@"C:\Users\kachi\Downloads\zaikolist - コピー.xlsx"))
-			{
-				var ws = wb.Worksheet(1);
-				var cell = ws.Cell(2, 7);
-				var s = cell.Style;
-			}
-			*/
 			var zaiko = Properties.Settings.Default.schemaname;
 			using (var conn = new NpgsqlConnection(Properties.Settings.Default.connect))
 			{

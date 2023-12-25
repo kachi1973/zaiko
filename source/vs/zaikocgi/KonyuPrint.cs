@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,7 +53,7 @@ namespace zaikocgi
             public string code2 { get; set; }
             public string name2 { get; set; }
         }
-        public class Root
+        public class Konyu
         {
             public int? id { get; set; }
             public string seiban { get; set; }
@@ -65,6 +65,7 @@ namespace zaikocgi
             public string juchu_no { get; set; }
             public int? kkamoku_id { get; set; }
             public int? status { get; set; }
+            public string status_str { get; set; }
             public DateTime? status10_date { get; set; }
             public string status10_user_id { get; set; }
             public DateTime? status20_date { get; set; }
@@ -107,7 +108,7 @@ namespace zaikocgi
             }
             Array.Resize(ref buf, buf_size);
             var json_str = System.Text.Encoding.UTF8.GetString(buf);
-            var data = Program.GetJson<Root>(json_str);
+            var data = Program.GetJson<Konyu>(json_str);
             using (var st = Console.OpenStandardOutput())
             {
                 using (var doc = new Document(PageSize.A4, 20f, 20f, 40f, 10f))

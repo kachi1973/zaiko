@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +19,12 @@ namespace Lib
 			public DateTime? updated_at { get; set; }
 			public DateTime? created_at { get; set; }
 			public string original { get; set; }
-		}
-		public class Zaiko
+
+            public string fhinrmei { get; set; }
+            public string fmekerhincd { get; set; }
+            public string fmekermei { get; set; }
+        }
+        public class Zaiko
 		{
 			public int? id { get; set; }
 			public string basho { get; set; }

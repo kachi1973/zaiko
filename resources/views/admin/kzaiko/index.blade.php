@@ -70,11 +70,10 @@
                 <button type="button" class="btn btn-primary" v-on:click="clear" >クリア</button>
                 <a href="{{route('kzaiko.rireki', ['id' => 0, 'ReturnURL' => url()->full()])}}" class="btn btn-primary">全ての履歴</a>
 @if(Gate::allows('Shukko'))
-                <button type="submit" name="submit2" value="2" class="btn btn-primary d-none d-md-inline" onclick="return window.confirm('QRコードファイルをダウンロードしますか？')">QRコード</button>
+                <button type="submit" name="submit2" value="2" class="btn btn-primary d-none d-md-inline" onclick="return window.confirm('QRコードファイルをダウンロードしますか？')">QR</button>
                 <button type="submit" name="submit3" value="3" class="btn btn-primary d-none d-md-inline" onclick="return window.confirm('CSVファイルをダウンロードしますか？')">CSV</button>
-            </div>
-            <div class="d-none d-md-inline" >
-                <a class="btn btn-primary btn-sm" href="{{Storage::disk('public')->url('installer/ToolsInstaller.msi')}}" download>印刷ツール</a>
+                <button type="submit" name="submit4" value="4" class="btn btn-primary d-none d-md-inline" onclick="return window.confirm('全ての在庫をエクセル形式でエクスポートしますか？')">XLS</button>
+                <a class="btn btn-primary btn-sm" href="{{Storage::disk('public')->url('installer/ToolsInstaller.msi')}}" download>ツール</a>
             </div>
 @endif
     </form>

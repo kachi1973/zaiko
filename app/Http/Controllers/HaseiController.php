@@ -87,22 +87,39 @@ class HaseiController extends Controller
                 $q->whereIn('status', $stss);
             }
         }
-        $total_cnt = $q->count();
-        $items = $q->skip(($pageNum - 1) * $perPage)->take($perPage)->get();
-        foreach ($items as $item) {
-            $item->append('items');
+        if($req->type == 'excel'){
+            $items = $q->get();
+            foreach ($items as $item) {
+                $item->append('items');
+            }
+            $json = json_encode($items, 0);
+            if(config('app.json_debug')){
+                file_put_contents(base_path("bin\\haseis.json"), $json);
+            }
+            [$ret, $stdout, $stderr] = Helper::RunCmd(base_path("bin\\zaikocgi.exe 13"), $json);
+            $headers = [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="haseis.xlsx"'
+            ];
+            return response()->make($stdout, 200, $headers);
+        }else{
+            $total_cnt = $q->count();
+            $items = $q->skip(($pageNum - 1) * $perPage)->take($perPage)->get();
+            foreach ($items as $item) {
+                $item->append('items');
+            }
+            return response()->json(
+                [
+                    'total_cnt' => $total_cnt,
+                    'page_cnt' => ceil($total_cnt / $perPage),
+                    'page_num' => $pageNum,
+                    'items' => $items,
+                ],
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
         }
-        return response()->json(
-            [
-                'total_cnt' => $total_cnt,
-                'page_cnt' => ceil($total_cnt / $perPage),
-                'page_num' => $pageNum,
-                'items' => $items,
-            ],
-            200,
-            [],
-            JSON_UNESCAPED_UNICODE
-        );
     }
     public function get_hasei($id){
         $item = Hasei::find($id);
